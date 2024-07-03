@@ -1,22 +1,25 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\User;
+
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
     public function show()
     {
-        $profile = Auth::user()->profile;
+        $user = Auth::user();
+        $profile = $user->profile ?? new Profile();
         return view('profile.show', compact('profile'));
     }
 
     public function edit()
     {
-        $profile = Auth::user()->profile;
+        $user = Auth::user();
+        $profile = $user->profile ?? new Profile();
         return view('profile.edit', compact('profile'));
     }
 
@@ -32,14 +35,21 @@ class ProfileController extends Controller
             'foto_perfil' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $profile->fill($request->only(['titulo', 'descripcion']));
+        $profile->titulo = $request->titulo;
+        $profile->descripcion = $request->descripcion;
 
         if ($request->hasFile('Archivo_hvida')) {
+            if ($profile->Archivo_hvida) {
+                Storage::disk('public')->delete($profile->Archivo_hvida);
+            }
             $path = $request->file('Archivo_hvida')->store('hv_files', 'public');
             $profile->Archivo_hvida = $path;
         }
 
         if ($request->hasFile('foto_perfil')) {
+            if ($profile->foto_perfil) {
+                Storage::disk('public')->delete($profile->foto_perfil);
+            }
             $path = $request->file('foto_perfil')->store('profile_photos', 'public');
             $profile->foto_perfil = $path;
         }

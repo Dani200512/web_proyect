@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <h1>Perfil de Usuario</h1>
-
+    
     @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
@@ -21,9 +21,9 @@
                     @endif
                 </div>
                 <div class="col-md-8">
-                    <h2>{{ $profile->titulo }}</h2>
-                    <p>{{ $profile->descripcion }}</p>
-
+                    <h2>{{ $profile->titulo ?? 'Sin título' }}</h2>
+                    <p>{{ $profile->descripcion ?? 'Sin descripción' }}</p>
+                    
                     @if($profile->Archivo_hvida)
                         <p><a href="{{ Storage::url($profile->Archivo_hvida) }}" target="_blank" class="btn btn-primary">Ver Hoja de Vida</a></p>
                     @endif

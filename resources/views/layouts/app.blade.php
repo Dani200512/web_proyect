@@ -34,8 +34,10 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('profile.form') }}">Profile</a>
+                            <a class="nav-link" href="{{ route('profile.show') }}">Profile</a>
                         </li>
+
+                        
                     @endguest
                 </ul>
             </div>

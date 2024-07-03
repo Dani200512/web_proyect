@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    use HasFactory;
+    protected $fillable = ['publication_type', 'content', 'description', 'profile_id'];
 
-    public function Profile(){
-        return $this->belongsTo('App\Models\Profile');
+    public function profile()
+    {
+        return $this->belongsTo(Profile::class);
     }
 
     public function comments(){

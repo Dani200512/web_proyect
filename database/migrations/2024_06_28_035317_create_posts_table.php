@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('publication_type');
             $table->string('content')->nullable();
             $table->text('description');
-            $table->unsignedBiginteger('profile_id')->unique()->nullable();
-            $table->foreign('profile_id')->references('id')->on('profiles')->onDelete('set null');
+            $table->unsignedBigInteger('profile_id');
+            $table->foreign('profile_id')->references('id')->on('profiles')->onDelete('cascade');
             $table->timestamps();
         });
     }
