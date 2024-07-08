@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\JobOfferController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -38,21 +39,15 @@ Route::middleware('web')->group(function () {
         Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     });
 
-    
+
+    Route::middleware(['auth'])->group(function () {
+        Route::resource('posts', PostController::class);
+        Route::get('/profile/{profile}/posts', [PostController::class, 'viewProfilePosts'])->name('profile.posts');
+    });
+
+
 
 Route::middleware(['auth'])->group(function () {
-    // Rutas que requieren autenticación
-    Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
-    Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
-    Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
-    Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
-    Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+    Route::resource('job-offers', JobOfferController::class);
 });
 
-// Rutas públicas
-Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
-Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
-Route::get('/profile/{profile}/posts', [PostController::class, 'profilePosts'])->name('profile.posts');
-
-
-    

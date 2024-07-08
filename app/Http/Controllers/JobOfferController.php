@@ -2,64 +2,88 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Job_offer;
+use App\Models\JobOffer;
+use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class JobOfferController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $jobOffers = JobOffer::with('post')->where('profile_id', Auth::user()->profile->id)->paginate(10);
+        return view('job_offers.index', compact('jobOffers'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('job_offers.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|max:255',
+            'description' => 'required',
+            'requirements' => 'required',
+        ]);
+
+        $post = Post::create([
+            'publication_type' => 'job_offer',
+            'description' => $request->title,
+            'content' => $request->description,
+            'profile_id' => Auth::user()->profile->id,
+        ]);
+
+        $jobOffer = new JobOffer($request->all());
+        $jobOffer->post_id = $post->id;
+        $jobOffer->profile_id = Auth::user()->profile->id;
+        $jobOffer->save();
+
+        return redirect()->route('job-offers.index')->with('success', 'Oferta de trabajo creada exitosamente.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Job_offer $job_offer)
+    public function show(JobOffer $jobOffer)
     {
-        //
+        return view('job_offers.show', compact('jobOffer'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Job_offer $job_offer)
+    public function edit(JobOffer $jobOffer)
     {
-        //
+        $this->authorize('update', $jobOffer);
+        return view('job_offers.edit', compact('jobOffer'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Job_offer $job_offer)
+    public function update(Request $request, JobOffer $jobOffer)
     {
-        //
+        $this->authorize('update', $jobOffer);
+
+        $request->validate([
+            'title' => 'required|max:255',
+            'description' => 'required',
+            'requirements' => 'required',
+        ]);
+
+        $jobOffer->update($request->all());
+
+        // Actualizar el post asociado
+        $jobOffer->post->update([
+            'description' => $request->title,
+            'content' => $request->description,
+        ]);
+
+        return redirect()->route('job-offers.index')->with('success', 'Oferta de trabajo actualizada exitosamente.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Job_offer $job_offer)
+    public function destroy(JobOffer $jobOffer)
     {
-        //
+        $this->authorize('delete', $jobOffer);
+
+        // Eliminar el post asociado
+        $jobOffer->post->delete();
+
+        // JobOffer se eliminará automáticamente debido a la relación de clave foránea con onDelete('cascade')
+
+        return redirect()->route('job_offers.index')->with('success', 'Oferta de trabajo eliminada exitosamente.');
     }
 }

@@ -5,69 +5,63 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Profile;
 use Illuminate\Http\Request;
+use App\Policies\PostPolicy;
 use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth')->except(['index', 'show', 'profilePosts']);
-    }
-
     public function index()
-    {
-        $posts = Post::with('profile.user')->latest()->paginate(10);
-        return view('post.index', compact('posts'));
+{
+    $user = Auth::user();
+    if (!$user || !$user->profile) {
+        return redirect()->route('profile.create')->with('error', 'Por favor, crea tu perfil primero.');
     }
-
-    public function profilePosts(Profile $profile)
-    {
-        $posts = $profile->posts()->with('profile.user')->latest()->paginate(10);
-        return view('posts.profile_posts', compact('posts', 'profile'));
-    }
+    $posts = $user->profile->posts()->latest()->paginate(100); // Cambia 10 por el número de posts que quieres por página
+    return view('posts.index', compact('posts'));
+}
 
     public function create()
     {
-        return view('post.create');
+        return view('posts.create');
     }
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'publication_type' => 'required|string|max:255',
-            'content' => 'nullable|string',
-            'description' => 'required|string',
+        $request->validate([
+            'publication_type' => 'required',
+            'description' => 'required',
+            'content' => 'nullable',
         ]);
 
-        $post = Auth::user()->profile->posts()->create($validatedData);
+        Auth::user()->profile->posts()->create($request->all());
 
-        return redirect()->route('posts.index')->with('success', 'Publicación creada exitosamente.');
+        return redirect()->route('posts.index')->with('success', 'Post creado exitosamente.');
     }
 
     public function show(Post $post)
     {
-        return view('post.show', compact('post'));
+        return view('posts.show', compact('post'));
     }
 
     public function edit(Post $post)
     {
         $this->authorize('update', $post);
-        return view('post.edit', compact('post'));
+        return view('posts.edit', compact('post'));
     }
 
     public function update(Request $request, Post $post)
     {
         $this->authorize('update', $post);
 
-        $validatedData = $request->validate([
-            'publication_type' => 'required|string|max:255',
-            'content' => 'nullable|string',
-            'description' => 'required|string',
+        $request->validate([
+            'publication_type' => 'required',
+            'description' => 'required',
+            'content' => 'nullable',
         ]);
 
-        $post->update($validatedData);
+        $post->update($request->all());
 
-        return redirect()->route('posts.show', $post)->with('success', 'Publicación actualizada exitosamente.');
+        return redirect()->route('posts.index')->with('success', 'Post actualizado exitosamente.');
     }
 
     public function destroy(Post $post)
@@ -76,6 +70,13 @@ class PostController extends Controller
 
         $post->delete();
 
-        return redirect()->route('post.index')->with('success', 'Publicación eliminada exitosamente.');
+        return redirect()->route('posts.index')->with('success', 'Post eliminado exitosamente.');
+    }
+
+    public function viewProfilePosts($profileId)
+    {
+        $profile = Profile::findOrFail($profileId);
+        $posts = $profile->posts()->latest()->paginate(10); // 10 es el número de posts por página
+        return view('posts.profile_posts', compact('posts', 'profile'));
     }
 }

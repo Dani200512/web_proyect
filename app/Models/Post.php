@@ -7,7 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $fillable = ['publication_type', 'content', 'description', 'profile_id'];
+    use HasFactory;
+
+    protected $fillable = [
+        'publication_type',
+        'content',
+        'description',
+        'profile_id'
+    ];
 
     public function profile()
     {

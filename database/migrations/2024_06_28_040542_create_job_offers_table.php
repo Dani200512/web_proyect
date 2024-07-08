@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('description');
             $table->string('requirements');
             $table->unsignedBigInteger('post_id')->nullable();
-            $table->unsignedBiginteger('profile_id')->unique()->nullable();
+            $table->unsignedBiginteger('profile_id')->nullable();
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('set null');
             $table->foreign('profile_id')->references('id')->on('profiles')->onDelete('cascade');
             $table->timestamps();
