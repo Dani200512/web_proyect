@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\JobOfferController;
+use App\Http\Controllers\MultimediaController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -49,5 +50,9 @@ Route::middleware('web')->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('job-offers', JobOfferController::class);
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('multimedia', MultimediaController::class);
 });
 

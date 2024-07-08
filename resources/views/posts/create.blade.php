@@ -19,5 +19,12 @@
         </div>
         <button type="submit" class="btn btn-primary">Crear</button>
     </form>
+    <br>
+
+    <a href="{{ route('job-offers.create') }}" class="btn btn-primary">Crear Oferta De trabajo</a>
+    <br>
+    <br>
+
+    <a href="{{ route('multimedia.create') }}" class="btn btn-primary">foto o video</a>
 </div>
 @endsection

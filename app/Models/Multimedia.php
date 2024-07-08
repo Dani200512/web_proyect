@@ -9,7 +9,10 @@ class Multimedia extends Model
 {
     use HasFactory;
 
-    public function Post(){
-        return $this->belongsTo('App\Models\Post');
+    protected $fillable = ['photo', 'video', 'post_id'];
+
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
     }
 }
