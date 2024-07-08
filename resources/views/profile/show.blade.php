@@ -29,6 +29,7 @@
                     @endif
 
                     <a href="{{ route('profile.edit') }}" class="btn btn-secondary">Editar Perfil</a>
+                    <a href="{{ route('skills.index') }}" class="btn btn-info"> Mis Skills</a>
                 </div>
             </div>
         </div>

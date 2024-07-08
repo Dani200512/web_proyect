@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->string('icono_representativo')->nullable();
-            $table->unsignedBiginteger('profile_id')->unique()->nullable();
+            $table->string('icon')->nullable();
+            $table->unsignedBiginteger('profile_id');
             $table->foreign('profile_id')->references('id')->on('profiles')->onDelete('cascade');
             $table->timestamps();
         });

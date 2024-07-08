@@ -9,6 +9,8 @@ class Skill extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'description', 'icon', 'profile_id'];
+
     public function profile()
     {
         return $this->belongsTo('App\Models\Profile');

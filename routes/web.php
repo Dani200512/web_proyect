@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\JobOfferController;
 use App\Http\Controllers\MultimediaController;
+use App\Http\Controllers\SkillController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -56,3 +57,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('multimedia', MultimediaController::class);
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::resource('skills', SkillController::class);
+});
