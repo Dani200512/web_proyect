@@ -10,7 +10,8 @@ class SkillController extends Controller
 {
     public function index()
     {
-        $skills = Skill::all();
+        // Modificar esta línea para obtener solo las skills del perfil actual
+        $skills = auth()->user()->profile->skills;
         return view('skill.index', compact('skills'));
     }
 
@@ -29,11 +30,10 @@ class SkillController extends Controller
 
         $iconPath = $request->file('icon')->store('skills', 'public');
 
-        Skill::create([
+        auth()->user()->profile->skills()->create([
             'name' => $request->name,
             'description' => $request->description,
             'icon' => $iconPath,
-            'profile_id' => auth()->user()->profile->id,
         ]);
 
         return redirect()->route('skills.index')->with('success', 'Skill creada exitosamente.');
@@ -41,16 +41,29 @@ class SkillController extends Controller
 
     public function show(Skill $skill)
     {
+        // Asegurarse de que la skill pertenezca al perfil actual
+        if ($skill->profile_id !== auth()->user()->profile->id) {
+            abort(403, 'No tienes permiso para ver esta skill.');
+        }
         return view('skill.show', compact('skill'));
     }
 
     public function edit(Skill $skill)
     {
+        // Asegurarse de que la skill pertenezca al perfil actual
+        if ($skill->profile_id !== auth()->user()->profile->id) {
+            abort(403, 'No tienes permiso para editar esta skill.');
+        }
         return view('skill.edit', compact('skill'));
     }
 
     public function update(Request $request, Skill $skill)
     {
+        // Asegurarse de que la skill pertenezca al perfil actual
+        if ($skill->profile_id !== auth()->user()->profile->id) {
+            abort(403, 'No tienes permiso para actualizar esta skill.');
+        }
+
         $request->validate([
             'name' => 'required|max:255',
             'description' => 'required',
@@ -60,7 +73,6 @@ class SkillController extends Controller
         $data = $request->only(['name', 'description']);
 
         if ($request->hasFile('icon')) {
-            // Eliminar el icono anterior si existe
             if ($skill->icon) {
                 Storage::disk('public')->delete($skill->icon);
             }
@@ -74,7 +86,11 @@ class SkillController extends Controller
 
     public function destroy(Skill $skill)
     {
-        // Eliminar el archivo de icono si existe
+        // Asegurarse de que la skill pertenezca al perfil actual
+        if ($skill->profile_id !== auth()->user()->profile->id) {
+            abort(403, 'No tienes permiso para eliminar esta skill.');
+        }
+
         if ($skill->icon) {
             Storage::disk('public')->delete($skill->icon);
         }
