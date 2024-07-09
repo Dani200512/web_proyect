@@ -11,14 +11,14 @@ use Illuminate\Support\Facades\Auth;
 class PostController extends Controller
 {
     public function index()
-{
-    $user = Auth::user();
-    if (!$user || !$user->profile) {
-        return redirect()->route('profile.create')->with('error', 'Por favor, crea tu perfil primero.');
+    {
+        $user = Auth::user();
+        if (!$user || !$user->profile) {
+            return redirect()->route('profile.create')->with('error', 'Por favor, crea tu perfil primero.');
+        }
+        $posts = Post::with('profile')->latest()->paginate(10);
+        return view('posts.index', compact('posts'));
     }
-    $posts = $user->profile->posts()->latest()->paginate(100); // Cambia 10 por el número de posts que quieres por página
-    return view('posts.index', compact('posts'));
-}
 
     public function create()
     {
@@ -76,7 +76,13 @@ class PostController extends Controller
     public function viewProfilePosts($profileId)
     {
         $profile = Profile::findOrFail($profileId);
-        $posts = $profile->posts()->latest()->paginate(10); // 10 es el número de posts por página
+        $posts = $profile->posts()->latest()->paginate(10);
         return view('posts.profile_posts', compact('posts', 'profile'));
+    }
+
+    public function homeIndex()
+    {
+        $posts = Post::with('profile')->latest()->paginate(10);
+        return view('home', compact('posts'));
     }
 }

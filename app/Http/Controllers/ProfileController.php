@@ -9,11 +9,16 @@ use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
-    public function show()
+    public function show($id = null)
     {
-        $user = Auth::user();
-        $profile = $user->profile ?? new Profile();
-        return view('profile.show', compact('profile'));
+        if ($id) {
+            $profile = Profile::findOrFail($id);
+        } else {
+            $user = Auth::user();
+            $profile = $user->profile ?? new Profile();
+        }
+        $posts = $profile->posts()->latest()->paginate(10);
+        return view('profile.show', compact('profile', 'posts'));
     }
 
     public function edit()
