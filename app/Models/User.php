@@ -24,6 +24,7 @@ class User extends Authenticatable
         'location',
         'gender',
         'documenttype',
+        'document_number',
         'phone',
         'email',
         'password',

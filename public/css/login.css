@@ -5,10 +5,18 @@ body {
     padding: 0;
 }
 
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
 .login-container {
-    max-width: 400px;
+    width: 100%;
+    max-width: 480px;
     margin: 0 auto;
-    padding: 24px;
 }
 
 .login-form-container {
@@ -26,19 +34,19 @@ body {
 }
 
 .login-subtitle {
-    font-size: 14px;
+    font-size: 16px;
     color: rgba(0, 0, 0, 0.6);
     margin-bottom: 24px;
 }
 
 .login-form .form-group {
-    margin-bottom: 16px;
+    margin-bottom: 20px;
 }
 
 .login-form input[type="email"],
 .login-form input[type="password"] {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 4px;
     font-size: 16px;
@@ -53,6 +61,7 @@ body {
 .remember-me {
     display: flex;
     align-items: center;
+    margin-bottom: 20px;
 }
 
 .remember-me input[type="checkbox"] {
@@ -61,12 +70,12 @@ body {
 
 .login-button {
     width: 100%;
-    padding: 12px;
+    padding: 16px;
     background-color: #0a66c2;
     color: #fff;
     border: none;
-    border-radius: 24px;
-    font-size: 16px;
+    border-radius: 28px;
+    font-size: 18px;
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s;
@@ -78,7 +87,7 @@ body {
 
 .login-divider {
     text-align: center;
-    margin: 16px 0;
+    margin: 20px 0;
     overflow: hidden;
 }
 
@@ -112,11 +121,11 @@ body {
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     background-color: #fff;
     color: rgba(0, 0, 0, 0.6);
     border: 1px solid rgba(0, 0, 0, 0.15);
-    border-radius: 24px;
+    border-radius: 28px;
     font-size: 16px;
     font-weight: 600;
     text-decoration: none;
@@ -135,8 +144,8 @@ body {
 
 .signup-link {
     text-align: center;
-    margin-top: 16px;
-    font-size: 14px;
+    margin-top: 20px;
+    font-size: 16px;
     color: rgba(0, 0, 0, 0.9);
 }
 
@@ -155,4 +164,25 @@ body {
     font-size: 14px;
     margin-top: 4px;
     display: block;
+}
+/*<link rel="stylesheet" href="{{ asset('css/login.css') }}">*/
+@media (max-width: 768px) {
+    .login-container {
+        max-width: 100%;
+    }
+
+    .login-title {
+        font-size: 28px;
+    }
+
+    .login-subtitle {
+        font-size: 14px;
+    }
+
+    .login-form input[type="email"],
+    .login-form input[type="password"],
+    .login-button,
+    .google-login-button {
+        font-size: 16px;
+    }
 }

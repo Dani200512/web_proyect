@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+          Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('lastname');
@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('location')->nullable();
             $table->string('gender');
             $table->string('documenttype');
+            $table->string('document_number')->unique(); // Nuevo campo
             $table->string('phone', 20);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
