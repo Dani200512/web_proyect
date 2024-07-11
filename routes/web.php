@@ -44,6 +44,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile/{profile}/posts', [PostController::class, 'viewProfilePosts'])->name('profile.posts');
 });
 
+Route::get('job-offers/create', [JobOfferController::class, 'create'])->name('job-offers.create');
+
 // Rutas para ofertas de trabajo
 Route::middleware(['auth'])->group(function () {
     Route::resource('job-offers', JobOfferController::class);

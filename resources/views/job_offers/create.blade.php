@@ -17,6 +17,9 @@
             <label for="requirements">Requisitos</label>
             <textarea class="form-control" id="requirements" name="requirements" rows="3" required></textarea>
         </div>
+        @if(request()->has('return_to_post'))
+            <input type="hidden" name="return_to_post" value="true">
+        @endif
         <button type="submit" class="btn btn-primary">Crear Oferta</button>
     </form>
 </div>

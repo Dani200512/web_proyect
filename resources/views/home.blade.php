@@ -14,13 +14,26 @@
 
     @if($posts->count() > 0)
         @foreach($posts as $post)
-            <div class="card mb-3">
+            <div class="card mb-4">
                 <div class="card-body">
-                    <h5 class="card-title">{{ $post->publication_type }}</h5>
+                    <h2 class="card-title">{{ $post->publication_type }}</h2>
                     <h6 class="card-subtitle mb-2 text-muted">
                         Por <a href="{{ route('profile.show', $post->profile->id) }}">{{ $post->profile->titulo }}</a>
                     </h6>
                     <p class="card-text">{{ Str::limit($post->description, 150) }}</p>
+                    
+                    @if($post->jobOffers->isNotEmpty())
+                        <h3>Ofertas de trabajo asociadas:</h3>
+                        <ul>
+                            @foreach($post->jobOffers as $jobOffer)
+                                <li>
+                                    <strong>{{ $jobOffer->title }}</strong>
+                                    <p>{{ Str::limit($jobOffer->description, 100) }}</p>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
+                    
                     <a href="{{ route('posts.show', $post->id) }}" class="btn btn-sm btn-info">Ver más</a>
                 </div>
             </div>

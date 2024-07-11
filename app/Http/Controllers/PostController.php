@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Profile;
+use App\Models\JobOffer;
 use Illuminate\Http\Request;
 use App\Policies\PostPolicy;
 use Illuminate\Support\Facades\Auth;
@@ -22,24 +23,37 @@ class PostController extends Controller
 
     public function create()
     {
-        return view('posts.create');
+        $jobOffers = collect(); // Inicializar como colección vacía
+        return view('posts.create', compact('jobOffers'));
     }
 
+   
     public function store(Request $request)
     {
         $request->validate([
             'publication_type' => 'required',
             'description' => 'required',
             'content' => 'nullable',
+            'job_offers' => 'nullable|array',
         ]);
-
-        Auth::user()->profile->posts()->create($request->all());
-
-        return redirect()->route('posts.index')->with('success', 'Post creado exitosamente.');
+    
+        $post = Auth::user()->profile->posts()->create($request->except('job_offers'));
+    
+        if ($request->has('job_offers')) {
+            foreach ($request->job_offers as $jobOfferId) {
+                $jobOffer = JobOffer::find($jobOfferId);
+                if ($jobOffer) {
+                    $jobOffer->post_id = $post->id;
+                    $jobOffer->save();
+                }
+            }
+        }
+    
+        return redirect()->route('posts.show', $post->id)->with('success', 'Post creado exitosamente.');
     }
-
     public function show(Post $post)
     {
+        $post->load('jobOffers');
         return view('posts.show', compact('post'));
     }
 

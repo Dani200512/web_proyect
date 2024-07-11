@@ -36,4 +36,9 @@ class Post extends Model
     public function job_offer(){
         return $this->hasMany('App\Models\Job_offer');
     }
+
+    public function jobOffers()
+    {
+        return $this->hasMany(JobOffer::class);
+    }
 }

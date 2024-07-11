@@ -17,14 +17,27 @@
             <label for="description">Descripción</label>
             <textarea class="form-control" id="description" name="description" required></textarea>
         </div>
+
+        @if($jobOffers->isNotEmpty())
+        <div class="form-group">
+            <label>Ofertas de trabajo disponibles:</label>
+            @foreach($jobOffers as $jobOffer)
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="job_offers[]" value="{{ $jobOffer->id }}" id="jobOffer{{ $jobOffer->id }}">
+                <label class="form-check-label" for="jobOffer{{ $jobOffer->id }}">
+                    {{ $jobOffer->title }}
+                </label>
+            </div>
+            @endforeach
+        </div>
+        @endif
+
         <button type="submit" class="btn btn-primary">Crear</button>
     </form>
     <br>
-
-    <a href="{{ route('job-offers.create') }}" class="btn btn-primary">Crear Oferta De trabajo</a>
+    <a href="{{ route('job-offers.create', ['return_to_post' => true]) }}" class="btn btn-secondary">Crear Oferta De trabajo</a>
     <br>
     <br>
-
-    <a href="{{ route('multimedia.create') }}" class="btn btn-primary">foto o video</a>
+    <a href="{{ route('multimedia.create') }}" class="btn btn-secondary">foto o video</a>
 </div>
 @endsection
