@@ -9,7 +9,7 @@
         @method('PUT')
 
         <div class="form-group">
-            <label for="titulo">Título</label>
+            <label for="titulo">Nombre</label>
             <input type="text" class="form-control @error('titulo') is-invalid @enderror" id="titulo" name="titulo" value="{{ old('titulo', $profile->titulo) }}" required>
             @error('titulo')
                 <span class="invalid-feedback" role="alert">
