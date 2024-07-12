@@ -26,6 +26,8 @@
                                 <h3>{{ $jobOffer->title }}</h3>
                                 <p>{{ $jobOffer->description }}</p>
                                 <p><strong>Requisitos:</strong> {{ $jobOffer->requirements }}</p>
+                                <a href="{{ route('job-offers.show', $jobOffer) }}" class="btn btn-primary btn-sm mt-2">Ver detalles</a>
+                            </li>
                             </li>
                         @endforeach
                     </ul>

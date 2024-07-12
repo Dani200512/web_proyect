@@ -33,6 +33,14 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('home') }}">home</a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('profile.show') }}">Profile</a>
+                        </li>
+
+
+                     
+
                         <li class="nav-item">
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
@@ -40,9 +48,7 @@
                             </form>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('profile.show') }}">Profile</a>
-                        </li>
+                        
 
 
                     @endguest

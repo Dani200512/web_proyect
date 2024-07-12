@@ -3,16 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\JobOffer;
-use App\Models\JobApplication;
+use App\Models\Job_Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class JobApplicationController extends Controller
 {
-    public function apply(JobOffer $jobOffer)
+    public function apply($jobOfferId)
     {
+        $jobOffer = JobOffer::findOrFail($jobOfferId);
         return view('job_applications.apply', compact('jobOffer'));
     }
+
+    
 
     public function store(Request $request, JobOffer $jobOffer)
     {
@@ -20,7 +23,7 @@ class JobApplicationController extends Controller
             'message' => 'required|min:10',
         ]);
 
-        JobApplication::create([
+        Job_Application::create([
             'job_offer_id' => $jobOffer->id,
             'profile_id' => Auth::user()->profile->id,
             'message' => $request->message,
@@ -29,7 +32,7 @@ class JobApplicationController extends Controller
         return redirect()->route('job-offers.show', $jobOffer)->with('success', 'Aplicación enviada exitosamente.');
     }
 
-    public function update(Request $request, JobApplication $application)
+    public function update(Request $request, Job_Application $application)
     {
         $request->validate([
             'status' => 'required|in:pending,accepted,rejected',
