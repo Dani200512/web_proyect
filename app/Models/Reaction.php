@@ -9,6 +9,12 @@ class Reaction extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'type_reaction',
+        'profile_id',
+        'post_id'
+    ];
+
     public function profile(){
         return $this->belongsTo('App\Models\Profile');
     }

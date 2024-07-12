@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->string('content');
-            $table->unsignedBiginteger('profile_id')->unique();
+            $table->unsignedBiginteger('profile_id');
             $table->unsignedBigInteger('post_id')->nullable();
             $table->foreign('profile_id')->references('id')->on('profiles')->onDelete('cascade');
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('set null');

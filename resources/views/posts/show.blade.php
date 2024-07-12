@@ -45,6 +45,33 @@
                     </form>
                 @endcan
             </div>
+
+            <!-- Comentarios -->
+            <div class="comments mt-4">
+                <h3>Comentarios</h3>
+                @foreach($post->comments as $comment)
+                    <div class="comment mb-3">
+                        <p>{{ $comment->content }}</p>
+                        <small>Por {{ $comment->profile->user->name }} el {{ $comment->created_at->format('d/m/Y H:i') }}</small>
+                        @can('delete', $comment)
+                            <form action="{{ route('comments.destroy', $comment) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                            </form>
+                        @endcan
+                    </div>
+                @endforeach
+
+                <!-- Formulario para agregar comentario -->
+                <form action="{{ route('comments.store', $post) }}" method="POST" class="mt-3">
+                    @csrf
+                    <div class="form-group">
+                        <textarea name="content" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Comentar</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>

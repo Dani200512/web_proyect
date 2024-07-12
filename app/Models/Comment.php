@@ -9,6 +9,12 @@ class Comment extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'content',
+        'profile_id',
+        
+    ];
+
     public function profile(){
         return $this->belongsTo('App\Models\Profile');
     }

@@ -3,63 +3,37 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reaction;
+use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReactionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+    public function toggle(Request $request, Post $post)
+{
+    $request->validate([
+        'type_reaction' => 'required|in:like,love,haha,wow,sad,angry',
+    ]);
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+    $reaction = Reaction::where('post_id', $post->id)
+        ->where('profile_id', Auth::user()->profile->id)
+        ->first();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+    if ($reaction) {
+        if ($reaction->type_reaction === $request->type_reaction) {
+            $reaction->delete();
+            return back()->with('success', 'Reacción eliminada.');
+        } else {
+            $reaction->update(['type_reaction' => $request->type_reaction]);
+            return back()->with('success', 'Reacción actualizada.');
+        }
+    } else {
+        Reaction::create([
+            'type_reaction' => $request->type_reaction,
+            'post_id' => $post->id,
+            'profile_id' => Auth::user()->profile->id,
+        ]);
+        return back()->with('success', 'Reacción agregada.');
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Reaction $reaction)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Reaction $reaction)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Reaction $reaction)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Reaction $reaction)
-    {
-        //
-    }
+}
 }

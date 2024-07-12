@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\JobOfferController;
 use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\MultimediaController;
+use App\Http\Controllers\ReactionController;
 use App\Http\Controllers\SkillController;
 use Illuminate\Support\Facades\Route;
 
@@ -65,3 +67,9 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/job-offers/{jobOffer}/apply', [JobApplicationController::class, 'apply'])->name('job-offers.apply');
 Route::post('/job-offers/{jobOffer}/apply', [JobApplicationController::class, 'store'])->name('job-offers.apply.store');
 Route::patch('/job-applications/{application}', [JobApplicationController::class, 'update'])->name('job-applications.update');
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+    Route::post('/posts/{post}/reactions', [ReactionController::class, 'toggle'])->name('reactions.toggle');
+});
