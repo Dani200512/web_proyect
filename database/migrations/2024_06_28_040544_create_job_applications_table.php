@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('message');
             $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
             $table->unsignedBigInteger('job_offer_id')->nullable();
-            $table->unsignedBiginteger('profile_id')->unique()->nullable();
+            $table->unsignedBiginteger('profile_id')->nullable();
             $table->foreign('job_offer_id')->references('id')->on('job_offers')->onDelete('set null');
             $table->foreign('profile_id')->references('id')->on('profiles')->onDelete('cascade');
             $table->timestamps();
