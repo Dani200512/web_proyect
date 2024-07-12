@@ -2,64 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Job_application;
+use App\Models\JobOffer;
+use App\Models\JobApplication;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class JobApplicationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function apply(JobOffer $jobOffer)
     {
-        //
+        return view('job_applications.apply', compact('jobOffer'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(Request $request, JobOffer $jobOffer)
     {
-        //
+        $request->validate([
+            'message' => 'required|min:10',
+        ]);
+
+        JobApplication::create([
+            'job_offer_id' => $jobOffer->id,
+            'profile_id' => Auth::user()->profile->id,
+            'message' => $request->message,
+        ]);
+
+        return redirect()->route('job-offers.show', $jobOffer)->with('success', 'Aplicación enviada exitosamente.');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function update(Request $request, JobApplication $application)
     {
-        //
-    }
+        $request->validate([
+            'status' => 'required|in:pending,accepted,rejected',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Job_application $job_application)
-    {
-        //
-    }
+        $application->update(['status' => $request->status]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Job_application $job_application)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Job_application $job_application)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Job_application $job_application)
-    {
-        //
+        return back()->with('success', 'Estado de la aplicación actualizado.');
     }
 }

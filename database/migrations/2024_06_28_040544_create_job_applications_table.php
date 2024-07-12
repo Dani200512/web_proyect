@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('job_applications', function (Blueprint $table) {
             $table->id();
             $table->string('message');
-            $table->string('state');
+            $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
             $table->unsignedBigInteger('job_offer_id')->nullable();
             $table->unsignedBiginteger('profile_id')->unique()->nullable();
             $table->foreign('job_offer_id')->references('id')->on('job_offers')->onDelete('set null');

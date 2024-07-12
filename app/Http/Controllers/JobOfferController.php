@@ -27,22 +27,23 @@ class JobOfferController extends Controller
             'description' => 'required',
             'requirements' => 'required',
         ]);
-    
+
         $jobOffer = new JobOffer($request->all());
         $jobOffer->profile_id = Auth::user()->profile->id;
         $jobOffer->save();
-    
+
         if ($request->has('return_to_post')) {
             $jobOffers = JobOffer::where('profile_id', Auth::user()->profile->id)
                                  ->whereNull('post_id')
                                  ->get();
             return view('posts.create', compact('jobOffers'));
         }
-    
+
         return redirect()->route('job-offers.index')->with('success', 'Oferta de trabajo creada exitosamente.');
     }
     public function show(JobOffer $jobOffer)
     {
+        $jobOffer->load('applications.profile');
         return view('job_offers.show', compact('jobOffer'));
     }
 

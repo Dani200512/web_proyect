@@ -7,15 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Job_application extends Model
 {
-    use HasFactory;
+    protected $fillable = ['job_offer_id', 'profile_id', 'message', 'status'];
+
+    public function jobOffer()
+    {
+        return $this->belongsTo(JobOffer::class);
+    }
 
     public function profile()
     {
-        return $this->belongsTo('App\Models\Profile');
-    }
-
-    public function job_offert(){
-        return $this->belongsTo('App\Models\Job_offer');
+        return $this->belongsTo(Profile::class);
     }
 }
 

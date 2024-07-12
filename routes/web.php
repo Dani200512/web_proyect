@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\JobOfferController;
+use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\MultimediaController;
 use App\Http\Controllers\SkillController;
 use Illuminate\Support\Facades\Route;
@@ -60,3 +61,7 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::resource('skills', SkillController::class);
 });
+
+Route::get('/job-offers/{jobOffer}/apply', [JobApplicationController::class, 'apply'])->name('job-offers.apply');
+Route::post('/job-offers/{jobOffer}/apply', [JobApplicationController::class, 'store'])->name('job-offers.apply.store');
+Route::patch('/job-applications/{application}', [JobApplicationController::class, 'update'])->name('job-applications.update');

@@ -18,6 +18,7 @@
                     <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro?')">Eliminar</button>
                 </form>
             </div>
+            
         </div>
     @endforeach
 

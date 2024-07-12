@@ -19,7 +19,7 @@ class JobOffer extends Model
         return $this->belongsTo(Profile::class);
     }
 
-    public function job_applications(){
+    public function applications(){
         return $this->hasMany('App\Models\Job_application');
     }
 }
