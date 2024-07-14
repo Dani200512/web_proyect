@@ -52,10 +52,9 @@ class PostController extends Controller
         return redirect()->route('posts.show', $post->id)->with('success', 'Post creado exitosamente.');
     }
     public function show(Post $post)
-    {
-        $post->load('jobOffers');
-        return view('posts.show', compact('post'));
-    }
+{
+    return view('posts.show', compact('post'));
+}
 
     public function edit(Post $post)
     {

@@ -69,7 +69,10 @@ Route::post('/job-offers/{jobOffer}/apply', [JobApplicationController::class, 's
 Route::patch('/job-applications/{application}', [JobApplicationController::class, 'update'])->name('job-applications.update');
 
 Route::middleware(['auth'])->group(function () {
-    Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::post('posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
     Route::post('/posts/{post}/reactions', [ReactionController::class, 'toggle'])->name('reactions.toggle');
 });
+
+Route::resource('comments', CommentController::class)->only(['store', 'edit', 'update', 'destroy']);
+Route::post('comments', [CommentController::class, 'store'])->name('comments.store');

@@ -48,33 +48,34 @@
                 @endcan
             </div>
 
-            <!-- Comentarios -->
-            <div class="comments mt-4">
-                <h3>Comentarios</h3>
-                @foreach($post->comments as $comment)
-                    <div class="comment mb-3">
-                        <p>{{ $comment->content }}</p>
-                        <small>Por {{ $comment->profile->user->name }} el {{ $comment->created_at->format('d/m/Y H:i') }}</small>
-                        @can('delete', $comment)
-                            <form action="{{ route('comments.destroy', $comment) }}" method="POST" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
-                            </form>
-                        @endcan
-                    </div>
-                @endforeach
-
-                <!-- Formulario para agregar comentario -->
-                <form action="{{ route('comments.store', $post) }}" method="POST" class="mt-3">
+    <!-- Comentarios -->
+<div class="comments mt-4">
+    <h3>Comentarios</h3>
+    @forelse($post->comments as $comment)
+        <div class="comment mb-3">
+            <p>{{ $comment->content }}</p>
+            <small>Por {{ $comment->profile->user->name }} el {{ $comment->created_at->format('d/m/Y H:i') }}</small>
+            @if(Auth::user()->profile->id === $comment->profile_id)
+                <a href="{{ route('comments.edit', $comment) }}" class="btn btn-sm btn-primary">Editar</a>
+                <form action="{{ route('comments.destroy', $comment) }}" method="POST" class="d-inline">
                     @csrf
-                    <div class="form-group">
-                        <textarea name="content" class="form-control" rows="3" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Comentar</button>
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de que quieres eliminar este comentario?')">Eliminar</button>
                 </form>
-            </div>
+            @endif
         </div>
+    @empty
+        <p>No hay comentarios aún.</p>
+    @endforelse
+
+    <!-- Formulario para agregar comentario -->
+    <form action="{{ route('comments.store', $post) }}" method="POST" class="mt-3">
+    @csrf
+    <input type="hidden" name="post_id" value="{{ $post->id }}">
+    <div class="form-group">
+        <textarea name="content" class="form-control" rows="3" required></textarea>
     </div>
+    <button type="submit" class="btn btn-primary">Comentar</button>
+</form>
 </div>
 @endsection
