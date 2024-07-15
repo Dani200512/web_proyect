@@ -4,54 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ayuemplen</title>
-    <link href="{{ asset('css/profile.css') }}" rel="stylesheet">
-    <script src="{{ asset('js/profile.js') }}"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
-    <style>
-        body{
-            background-color: #cccccc;
-        }
-    </style>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar">
         <div class="container">
-            <a class="navbar-brand" href="#">Ayuemplen</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+            <div class="navbar-brand">
+                <img src="{{ asset('imagenes/logo.png') }}" alt="Logo" class="navbar-logo">
+                <span>Ayuemplen</span>
+            </div>
+            <button class="navbar-toggler" type="button">
+                <i class="fas fa-bars"></i>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
+            <div class="navbar-menu">
+                <ul class="navbar-nav">
                     @guest
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login.form') }}">Login</a>
+                            <a class="nav-link" href="{{ route('login.form') }}">
+                                <i class="fas fa-sign-in-alt"></i>
+                                <span>Login</span>
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register.form') }}">Register</a>
+                            <a class="nav-link" href="{{ route('register.form') }}">
+                                <i class="fas fa-user-plus"></i>
+                                <span>Register</span>
+                            </a>
                         </li>
                     @else
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('home') }}">home</a>
+                            <a class="nav-link" href="{{ route('home') }}">
+                                <i class="fas fa-home"></i>
+                                <span>Home</span>
+                            </a>
                         </li>
-
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('profile.show') }}">Profile</a>
+                            <a class="nav-link" href="{{ route('profile.show') }}">
+                                <i class="fas fa-user"></i>
+                                <span>Profile</span>
+                            </a>
                         </li>
-
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('job-offers.index') }}">Mis Ofertas</a>
+                            <a class="nav-link" href="{{ route('job-offers.index') }}">
+                                <i class="fas fa-briefcase"></i>
+                                <span>Mis Ofertas</span>
+                            </a>
                         </li>
-
-                        <li class="nav-item">
+                        <li class="nav-item logout-item">
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
-                                <button type="submit" class="nav-link btn btn-link">Logout</button>
+                                <button type="submit" class="nav-link btn-link">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <span>Logout</span>
+                                </button>
                             </form>
                         </li>
-
-
-
-
                     @endguest
                 </ul>
             </div>
@@ -61,5 +69,11 @@
     <div class="py-4">
         @yield('content')
     </div>
+
+    <script>
+        document.querySelector('.navbar-toggler').addEventListener('click', function() {
+            document.querySelector('.navbar-menu').classList.toggle('show');
+        });
+    </script>
 </body>
 </html>

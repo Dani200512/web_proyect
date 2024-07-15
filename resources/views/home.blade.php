@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<link href="{{ asset('css/home.css') }}" rel="stylesheet">
 <div class="container-fluid">
     <div class="row">
         <!-- Columna izquierda para perfil -->
@@ -71,6 +72,5 @@
 </div>
 @endsection
 
-@push('styles')
-<link href="{{ asset('css/home.css') }}" rel="stylesheet">
-@endpush
+
+

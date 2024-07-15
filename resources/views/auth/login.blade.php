@@ -9,7 +9,7 @@
     <div class="login-container">
         <div class="login-form-container">
             <h1 class="login-title">Iniciar sesión</h1>
-            <p class="login-subtitle">Mantente al día de tu mundo profesional</p>
+            <p class="login-subtitle">Mantente al día de tu mundo para buscar empleo</p>
             <form method="POST" action="{{ route('login') }}" class="login-form">
                 @csrf
                 <div class="form-group">
@@ -33,7 +33,7 @@
             <div class="login-divider">
                 <span>o</span>
             </div>
-           
+
         </div>
         <p class="signup-link">¿Eres nuevo en nuestra plataforma? <a href="{{ route('register') }}">Únete ahora</a></p>
     </div>

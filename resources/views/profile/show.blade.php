@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+<link href="{{ asset('css/profile.css') }}" rel="stylesheet">
+<script src="{{ asset('js/profile.js') }}"></script>
 <div class="profile-container">
     @if (session('success'))
         <div class="alert alert-success">
@@ -71,10 +73,7 @@
 </div>
 @endsection
 
-@section('styles')
-    <link href="{{ asset('css/profile.css') }}" rel="stylesheet">
-@endsection
 
-@section('scripts')
-    <script src="{{ asset('js/profile.js') }}"></script>
-@endsection
+
+
+
