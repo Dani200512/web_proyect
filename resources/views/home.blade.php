@@ -12,6 +12,10 @@
                     <p class="card-text text-muted">{{ Auth::user()->profile->titulo ?? 'Tu título profesional' }}</p>
                     <a href="{{ route('profile.edit') }}" class="btn btn-outline-primary btn-sm">Editar perfil</a>
                 </div>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('my-applications') }}">Mis aplicaciones</a>
+                </li>
             </div>
         </div>
 
@@ -81,7 +85,7 @@
             @endif
         </div>
 
-        <!-- Puedes agregar una tercera columna aquí si lo deseas -->
+       
     </div>
 </div>
 @endsection

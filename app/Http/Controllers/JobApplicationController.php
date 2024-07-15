@@ -15,7 +15,7 @@ class JobApplicationController extends Controller
         return view('job_applications.apply', compact('jobOffer'));
     }
 
-    
+
 
     public function store(Request $request, JobOffer $jobOffer)
     {
@@ -41,5 +41,11 @@ class JobApplicationController extends Controller
         $application->update(['status' => $request->status]);
 
         return back()->with('success', 'Estado de la aplicación actualizado.');
+    }
+    
+    public function myApplications()
+    {
+        $applications = auth()->user()->profile->job_applications()->with('jobOffer')->latest()->get();
+        return view('job_applications.my-applications', compact('applications'));
     }
 }

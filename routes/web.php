@@ -73,6 +73,8 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/job-offers/{jobOffer}/apply', [JobApplicationController::class, 'apply'])->name('job-offers.apply');
 Route::post('/job-offers/{jobOffer}/apply', [JobApplicationController::class, 'store'])->name('job-offers.apply.store');
 Route::patch('/job-applications/{application}', [JobApplicationController::class, 'update'])->name('job-applications.update');
+Route::get('/my-applications', [JobApplicationController::class, 'myApplications'])->name('my-applications');
+
 
 Route::middleware(['auth'])->group(function () {
     Route::post('posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');

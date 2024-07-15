@@ -38,8 +38,9 @@
                             <a class="nav-link" href="{{ route('profile.show') }}">Profile</a>
                         </li>
 
-
-                     
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('job-offers.index') }}">Mis Ofertas</a>
+                        </li>
 
                         <li class="nav-item">
                             <form action="{{ route('logout') }}" method="POST">
@@ -48,7 +49,7 @@
                             </form>
                         </li>
 
-                        
+
 
 
                     @endguest
