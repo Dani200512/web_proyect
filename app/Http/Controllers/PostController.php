@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Profile;
 use App\Models\JobOffer;
+use App\Models\Multimedia;
 use Illuminate\Http\Request;
 use App\Policies\PostPolicy;
 use Illuminate\Support\Facades\Auth;
@@ -23,34 +24,39 @@ class PostController extends Controller
 
     public function create()
     {
-        $jobOffers = collect(); // Inicializar como colección vacía
+        $jobOffers = JobOffer::where('profile_id', auth()->user()->profile->id)->get();
         return view('posts.create', compact('jobOffers'));
     }
 
-   
     public function store(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'publication_type' => 'required',
+            'content' => 'required',
             'description' => 'required',
-            'content' => 'nullable',
-            'job_offers' => 'nullable|array',
         ]);
-    
-        $post = Auth::user()->profile->posts()->create($request->except('job_offers'));
-    
+
+        $post = new Post($validatedData);
+        $post->profile_id = auth()->user()->profile->id;
+        $post->save();
+
         if ($request->has('job_offers')) {
-            foreach ($request->job_offers as $jobOfferId) {
-                $jobOffer = JobOffer::find($jobOfferId);
-                if ($jobOffer) {
-                    $jobOffer->post_id = $post->id;
-                    $jobOffer->save();
-                }
-            }
+            $post->jobOffers()->attach($request->job_offers);
         }
-    
-        return redirect()->route('posts.show', $post->id)->with('success', 'Post creado exitosamente.');
+
+        // Asociar contenido multimedia si existe en la sesión
+        if (session()->has('multimedia_id')) {
+            $multimedia = Multimedia::find(session('multimedia_id'));
+            if ($multimedia) {
+                $multimedia->post_id = $post->id;
+                $multimedia->save();
+            }
+            session()->forget('multimedia_id');
+        }
+
+        return redirect()->route('home')->with('success', 'Publicación creada exitosamente.');
     }
+    
     public function show(Post $post)
 {
     return view('posts.show', compact('post'));

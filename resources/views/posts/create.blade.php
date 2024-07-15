@@ -38,6 +38,6 @@
     <a href="{{ route('job-offers.create', ['return_to_post' => true]) }}" class="btn btn-secondary">Crear Oferta De trabajo</a>
     <br>
     <br>
-    <a href="{{ route('multimedia.create') }}" class="btn btn-secondary">foto o video</a>
+    <a href="{{ route('multimedia.create') }}" class="btn btn-secondary">Agregar foto o video</a>
 </div>
 @endsection

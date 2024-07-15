@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JobOfferController;
 use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\MultimediaController;
@@ -33,7 +34,7 @@ Route::middleware('web')->group(function () {
 
 // Ruta de inicio (home)
 Route::get('/home', [PostController::class, 'homeIndex'])->middleware('auth')->name('home');
-
+Route::get('/', [HomeController::class, 'index'])->name('home');
 // Rutas para perfiles
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
@@ -56,6 +57,11 @@ Route::middleware(['auth'])->group(function () {
 
 // Rutas para multimedia
 Route::middleware(['auth'])->group(function () {
+    Route::resource('multimedia', MultimediaController::class);
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('posts', PostController::class);
     Route::resource('multimedia', MultimediaController::class);
 });
 
