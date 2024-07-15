@@ -22,7 +22,7 @@ class CommentController extends Controller
         'post_id' => $request->post_id,
     ]);
 
-    return back()->with('success', 'Comentario agregado exitosamente.');
+    return redirect()->route('home')->with('success', 'Comentario agregado exitosamente.');
 }
     public function edit(Comment $comment)
     {

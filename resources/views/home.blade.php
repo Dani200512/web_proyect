@@ -74,6 +74,34 @@
 
                             <a href="{{ route('posts.show', $post->id) }}" class="btn btn-outline-info btn-sm mt-3">Ver más</a>
                         </div>
+
+                        <!-- Sección de comentarios -->
+                        <div class="card-footer">
+                            <h6>Últimos comentarios:</h6>
+                            @foreach($post->comments()->latest()->take(3)->get() as $comment)
+                                <div class="comment mb-2">
+                                    <strong>{{ $comment->profile->titulo }}:</strong> {{ $comment->content }}
+                                    @if(Auth::user()->profile->id === $comment->profile_id)
+                                        <a href="{{ route('comments.edit', $comment) }}" class="btn btn-sm btn-outline-primary">Editar</a>
+                                        <form action="{{ route('comments.destroy', $comment) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                                        </form>
+                                    @endif
+                                </div>
+                            @endforeach
+                            <a href="{{ route('posts.show', $post) }}" class="btn btn-sm btn-link">Ver todos los comentarios</a>
+                            <!-- Formulario para agregar comentario -->
+                            <form action="{{ route('comments.store') }}" method="POST" class="mt-3">
+                                @csrf
+                                <input type="hidden" name="post_id" value="{{ $post->id }}">
+                                <div class="form-group">
+                                    <textarea name="content" class="form-control" rows="2" placeholder="Escribe un comentario..."></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-sm">Comentar</button>
+                            </form>
+                        </div>
                     </div>
                 @endforeach
 
@@ -84,8 +112,6 @@
                 <div class="alert alert-info">No hay publicaciones disponibles.</div>
             @endif
         </div>
-
-       
     </div>
 </div>
 @endsection

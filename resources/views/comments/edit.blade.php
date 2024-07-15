@@ -7,7 +7,7 @@
         @csrf
         @method('PUT')
         <div class="form-group">
-            <textarea name="content" class="form-control" rows="3" required>{{ $comment->content }}</textarea>
+            <textarea name="content" class="form-control" rows="3">{{ $comment->content }}</textarea>
         </div>
         <button type="submit" class="btn btn-primary">Actualizar Comentario</button>
     </form>

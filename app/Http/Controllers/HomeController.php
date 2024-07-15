@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function index()
-    {
-        $posts = Post::with(['profile', 'multimedias', 'jobOffers'])
-                     ->latest()
-                     ->paginate(10); 
+{
+    $posts = Post::with(['profile', 'multimedias', 'jobOffers', 'comments.profile'])
+                 ->latest()
+                 ->paginate(100);
 
-        return view('home', compact('posts'));
-    }
+    return view('home', compact('posts'));
+}
 }
