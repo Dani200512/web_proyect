@@ -1,29 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
 {
-    $posts = Post::with('jobOffers')->latest()->paginate(10);
+    $posts = Post::with(['profile', 'multimedias', 'jobOffers', 'comments.profile'])
+                 ->latest()
+                 ->paginate(100);
+
     return view('home', compact('posts'));
 }
 }

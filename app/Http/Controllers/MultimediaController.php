@@ -21,28 +21,29 @@ class MultimediaController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'photo' => 'nullable|image|max:2048',
-            'video' => 'nullable|mimes:mp4,mov,ogg,qt|max:20480',
-            'post_id' => 'required|exists:posts,id'
+        $validatedData = $request->validate([
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'video' => 'nullable|mimetypes:video/avi,video/mpeg,video/quicktime,video/mp4|max:20480',
         ]);
 
         $multimedia = new Multimedia();
-        $multimedia->post_id = $request->post_id;
 
         if ($request->hasFile('photo')) {
-            $path = $request->file('photo')->store('photos', 'public');
-            $multimedia->photo = $path;
+            $photoPath = $request->file('photo')->store('photos', 'public');
+            $multimedia->photo = $photoPath;
         }
 
         if ($request->hasFile('video')) {
-            $path = $request->file('video')->store('videos', 'public');
-            $multimedia->video = $path;
+            $videoPath = $request->file('video')->store('videos', 'public');
+            $multimedia->video = $videoPath;
         }
 
         $multimedia->save();
 
-        return response()->json(['message' => 'Multimedia subida con éxito', 'multimedia' => $multimedia]);
+        // Guardar el ID del multimedia en la sesión
+        session(['multimedia_id' => $multimedia->id]);
+
+        return redirect()->route('posts.create')->with('success', 'Contenido multimedia agregado. Ahora puedes crear tu publicación.');
     }
 
     public function show(Multimedia $multimedia)
