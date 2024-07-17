@@ -5,8 +5,8 @@ body {
 }
 
 .container-fluid {
-    padding: 24px 0;
-    max-width: 1128px;
+    padding: 24px 15px;
+    max-width: 1280px;
     margin: 0 auto;
 }
 
@@ -24,20 +24,32 @@ body {
 
 .col-md-6 {
     flex: 0 0 50%;
-    max-width: 50%;
+    max-width: 70%;
     padding: 0 12px;
 }
 
 .card {
     background-color: #fff;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     box-shadow: 0 0 0 1px rgba(0,0,0,0.15), 0 2px 3px rgba(0,0,0,0.2);
     margin-bottom: 24px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.15), 0 4px 6px rgba(0,0,0,0.2);
 }
 
 .card-body {
     padding: 24px;
+}
+
+.card-footer {
+    background-color: #f9f9f9;
+    border-top: 1px solid #e0e0e0;
+    padding: 16px 24px;
 }
 
 .rounded-circle {
@@ -49,7 +61,7 @@ body {
 }
 
 .card-title {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
     margin-bottom: 4px;
 }
@@ -60,10 +72,11 @@ body {
 }
 
 .btn {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
-    padding: 6px 16px;
-    border-radius: 16px;
+    padding: 8px 16px;
+    border-radius: 24px;
+    transition: all 0.3s ease;
 }
 
 .btn-outline-primary {
@@ -84,6 +97,17 @@ body {
 .btn-primary:hover {
     background-color: rgba(26, 104, 156, 1);
     border-color: rgba(26, 104, 156, 1);
+}
+
+.btn-light {
+    color: rgba(0, 0, 0, 0.6);
+    background-color: #f3f2ef;
+    border-color: #e0e0e0;
+}
+
+.btn-light:hover {
+    background-color: #e0e0e0;
+    color: rgba(0, 0, 0, 0.9);
 }
 
 .nav-link {
@@ -128,6 +152,67 @@ body {
     color: rgba(0,0,0,0.6);
     padding: 16px;
     text-align: center;
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 15px 6px;
+    border: 1px solid #e0e0e0;
+    background-color: #fff;
+}
+
+.btn-block:hover {
+    background-color: #f3f2ef;
+}
+
+.card-text {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+.comment {
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.comment img {
+    width: 32px;
+    height: 32px;
+}
+
+.btn-link {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 0;
+    text-decoration: none;
+}
+
+.btn-link:hover {
+    color: rgba(0, 0, 0, 0.9);
+    text-decoration: underline;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.font-weight-bold {
+    font-weight: 600;
+}
+
+.form-control {
+    border-radius: 24px;
+    border: 1px solid #e0e0e0;
+    padding: 10px 16px;
+}
+
+.form-control:focus {
+    border-color: rgba(32, 169, 138, 1);
+    box-shadow: 0 0 0 2px rgba(32, 169, 138, 0.2);
 }
 
 @media (max-width: 768px) {

@@ -22,28 +22,33 @@ class MultimediaController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'video' => 'nullable|mimetypes:video/avi,video/mpeg,video/quicktime,video/mp4|max:20480',
+            'file' => 'required|file|max:20480', // 20MB Max
+            'type' => 'required|in:photo,video',
+            'post_id' => 'required|exists:posts,id'
         ]);
 
-        $multimedia = new Multimedia();
+        $file = $request->file('file');
+        $type = $request->input('type');
 
-        if ($request->hasFile('photo')) {
-            $photoPath = $request->file('photo')->store('photos', 'public');
-            $multimedia->photo = $photoPath;
+        if ($type === 'photo' && !$file->isValid(['jpeg', 'png', 'jpg', 'gif'])) {
+            return back()->withErrors(['file' => 'El archivo debe ser una imagen válida.']);
         }
 
-        if ($request->hasFile('video')) {
-            $videoPath = $request->file('video')->store('videos', 'public');
-            $multimedia->video = $videoPath;
+        if ($type === 'video' && !in_array($file->getMimeType(), ['video/avi', 'video/mpeg', 'video/quicktime', 'video/mp4'])) {
+            return back()->withErrors(['file' => 'El archivo debe ser un video válido.']);
         }
+
+        $path = $file->store($type . 's', 'public');
+
+        $multimedia = new Multimedia([
+            'type' => $type,
+            'path' => $path,
+            'post_id' => $request->input('post_id')
+        ]);
 
         $multimedia->save();
 
-        // Guardar el ID del multimedia en la sesión
-        session(['multimedia_id' => $multimedia->id]);
-
-        return redirect()->route('posts.create')->with('success', 'Contenido multimedia agregado. Ahora puedes crear tu publicación.');
+        return redirect()->route('posts.show', $request->input('post_id'))->with('success', 'Contenido multimedia agregado exitosamente.');
     }
 
     public function show(Multimedia $multimedia)
@@ -58,50 +63,44 @@ class MultimediaController extends Controller
 
     public function update(Request $request, Multimedia $multimedia)
     {
-        $request->validate([
-            'photo' => 'nullable|image|max:2048',
-            'video' => 'nullable|mimes:mp4,mov,ogg,qt|max:20480',
+        $validatedData = $request->validate([
+            'file' => 'nullable|file|max:20480', // 20MB Max
+            'type' => 'required|in:photo,video',
             'post_id' => 'required|exists:posts,id'
         ]);
 
-        if ($request->hasFile('photo')) {
-            if ($multimedia->photo) {
-                Storage::disk('public')->delete($multimedia->photo);
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $type = $request->input('type');
+
+            if ($type === 'photo' && !$file->isValid(['jpeg', 'png', 'jpg', 'gif'])) {
+                return back()->withErrors(['file' => 'El archivo debe ser una imagen válida.']);
             }
-            $path = $request->file('photo')->store('photos', 'public');
-            $multimedia->photo = $path;
+
+            if ($type === 'video' && !in_array($file->getMimeType(), ['video/avi', 'video/mpeg', 'video/quicktime', 'video/mp4'])) {
+                return back()->withErrors(['file' => 'El archivo debe ser un video válido.']);
+            }
+
+            // Eliminar el archivo anterior
+            Storage::disk('public')->delete($multimedia->path);
+
+            // Guardar el nuevo archivo
+            $path = $file->store($type . 's', 'public');
+            $multimedia->path = $path;
         }
 
-        if ($request->hasFile('video')) {
-            if ($multimedia->video) {
-                Storage::disk('public')->delete($multimedia->video);
-            }
-            $path = $request->file('video')->store('videos', 'public');
-            $multimedia->video = $path;
-        }
-
-        $multimedia->post_id = $request->post_id;
+        $multimedia->type = $request->input('type');
+        $multimedia->post_id = $request->input('post_id');
         $multimedia->save();
 
         return redirect()->route('multimedia.show', $multimedia)->with('success', 'Multimedia actualizada con éxito');
     }
 
-
-
-
     public function destroy(Multimedia $multimedia)
     {
-        if ($multimedia->photo) {
-            Storage::disk('public')->delete($multimedia->photo);
-        }
-        if ($multimedia->video) {
-            Storage::disk('public')->delete($multimedia->video);
-        }
-
+        Storage::disk('public')->delete($multimedia->path);
         $multimedia->delete();
 
         return redirect()->route('multimedia.index')->with('success', 'Multimedia eliminada con éxito');
     }
-
-
 }

@@ -1,0 +1,127 @@
+.linkedin-container {
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Fira Sans, Ubuntu, Oxygen, Oxygen Sans, Cantarell, Droid Sans, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Lucida Grande, Helvetica, Arial, sans-serif;
+    color: rgba(0, 0, 0, 0.9);
+    padding: 20px;
+}
+
+.profile-header {
+    margin-bottom: 20px;
+}
+
+.profile-header h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #000;
+}
+
+.linkedin-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15), 0 2px 3px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    padding: 24px;
+}
+
+.post-header {
+    margin-bottom: 16px;
+}
+
+.post-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+}
+
+.post-meta {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.6);
+    margin: 0;
+}
+
+.post-body {
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 16px;
+}
+
+.post-description {
+    margin: 0;
+}
+
+.post-actions {
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    padding-top: 16px;
+}
+
+.linkedin-btn {
+    background-color: transparent;
+    border: none;
+    color: rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary {
+    background-color: #0a66c2;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #004182;
+    text-decoration: none;
+    color: #fff;
+}
+
+.pagination-container {
+    margin-top: 20px;
+}
+
+.pagination-container nav {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination-container .pagination {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+}
+
+.pagination-container .page-item {
+    margin: 0 5px;
+}
+
+.pagination-container .page-link {
+    color: #0a66c2;
+    background-color: #fff;
+    border: 1px solid #0a66c2;
+    padding: 5px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination-container .page-item.active .page-link,
+.pagination-container .page-link:hover {
+    background-color: #0a66c2;
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .linkedin-container {
+        padding: 10px;
+    }
+
+    .linkedin-btn {
+        width: 100%;
+        text-align: center;
+    }
+}

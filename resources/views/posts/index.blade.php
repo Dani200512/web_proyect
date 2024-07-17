@@ -1,38 +1,47 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h1>Publicaciones</h1>
-
-    @if(Auth::check())
-        <a href="{{ route('posts.create') }}" class="btn btn-primary mb-3">Crear nueva publicación</a>
-    @endif
+<link href="{{ asset('css/post_index.css') }}" rel="stylesheet">
+<div class="linkedin-container">
+    <div class="page-header">
+        <h1>Publicaciones</h1>
+        @if(Auth::check())
+            <a href="{{ route('posts.create') }}" class="linkedin-btn btn-primary">Crear nueva publicación</a>
+        @endif
+    </div>
 
     @if($posts->count() > 0)
-        @foreach($posts as $post)
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">{{ $post->publication_type }}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">
-                        Por <a href="{{ route('profile.show', $post->profile->id) }}">{{ $post->profile->titulo }}</a>
-                    </h6>
-                    <p class="card-text">{{ Str::limit($post->description, 100) }}</p>
-                    <a href="{{ route('posts.show', $post) }}" class="btn btn-info">Ver</a>
-                    @if(Auth::id() == $post->profile->user_id)
-                        <a href="{{ route('posts.edit', $post) }}" class="btn btn-warning">Editar</a>
-                        <form action="{{ route('posts.destroy', $post) }}" method="POST" style="display: inline-block;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro?')">Eliminar</button>
-                        </form>
-                    @endif
+        <div class="posts-container">
+            @foreach($posts as $post)
+                <div class="linkedin-card post-card">
+                    <div class="post-header">
+                        <h2 class="post-title">{{ $post->publication_type }}</h2>
+                        <p class="post-subtitle">
+                            Por <a href="{{ route('profile.show', $post->profile->id) }}">{{ $post->profile->titulo }}</a>
+                        </p>
+                    </div>
+                    <div class="post-body">
+                        <p class="post-description">{{ Str::limit($post->description, 100) }}</p>
+                    </div>
+                    <div class="post-actions">
+                        <a href="{{ route('posts.show', $post) }}" class="linkedin-btn btn-info">Ver</a>
+                        @if(Auth::id() == $post->profile->user_id)
+                            <a href="{{ route('posts.edit', $post) }}" class="linkedin-btn btn-warning">Editar</a>
+                            <form action="{{ route('posts.destroy', $post) }}" method="POST" class="inline-form">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="linkedin-btn btn-danger" onclick="return confirm('¿Estás seguro?')">Eliminar</button>
+                            </form>
+                        @endif
+                    </div>
                 </div>
-            </div>
-        @endforeach
-
-        {{ $posts->links() }}
+            @endforeach
+        </div>
+        <div class="pagination-container">
+            {{ $posts->links() }}
+        </div>
     @else
-        <p>No hay publicaciones disponibles.</p>
+        <p class="no-posts">No hay publicaciones disponibles.</p>
     @endif
 </div>
 @endsection

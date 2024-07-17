@@ -29,34 +29,56 @@ class PostController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'publication_type' => 'required',
-            'content' => 'required',
-            'description' => 'required',
-        ]);
+{
+    $validatedData = $request->validate([
+        'publication_type' => 'required|in:general,job_offer',
+        'description' => 'required',
+        'content' => 'nullable',
+        'job_offer.title' => 'required_if:publication_type,job_offer',
+        'job_offer.description' => 'required_if:publication_type,job_offer',
+        'job_offer.requirements' => 'nullable',
+        'job_offer.salary' => 'nullable',
+        'job_offer.location' => 'nullable',
+        'photo' => 'nullable|image|max:2048', // 2MB Max
+        'video' => 'nullable|mimetypes:video/avi,video/mpeg,video/quicktime,video/mp4|max:20480', // 20MB Max
+    ]);
 
-        $post = new Post($validatedData);
-        $post->profile_id = auth()->user()->profile->id;
-        $post->save();
+    $post = new Post();
+    $post->publication_type = $validatedData['publication_type'];
+    $post->description = $validatedData['description'];
+    $post->content = $validatedData['content'];
+    $post->profile_id = auth()->user()->profile->id;
+    $post->save();
 
-        if ($request->has('job_offers')) {
-            $post->jobOffers()->attach($request->job_offers);
-        }
-
-        // Asociar contenido multimedia si existe en la sesión
-        if (session()->has('multimedia_id')) {
-            $multimedia = Multimedia::find(session('multimedia_id'));
-            if ($multimedia) {
-                $multimedia->post_id = $post->id;
-                $multimedia->save();
-            }
-            session()->forget('multimedia_id');
-        }
-
-        return redirect()->route('home')->with('success', 'Publicación creada exitosamente.');
+    if ($post->publication_type === 'job_offer') {
+        $jobOffer = new JobOffer($request->job_offer);
+        $jobOffer->profile_id = auth()->user()->profile->id;
+        $jobOffer->post_id = $post->id;
+        $jobOffer->save();
     }
-    
+
+    // Manejar la subida de foto
+    if ($request->hasFile('photo')) {
+        $photoPath = $request->file('photo')->store('post_photos', 'public');
+        $post->multimedias()->create([
+            'type' => 'photo',
+            'path' => $photoPath
+        ]);
+    }
+
+    // Manejar la subida de video
+    if ($request->hasFile('video')) {
+        $videoPath = $request->file('video')->store('post_videos', 'public');
+        $post->multimedias()->create([
+            'type' => 'video',
+            'path' => $videoPath
+        ]);
+    }
+    return redirect()->route('home')->with('success', 'Publicación creada exitosamente.');
+
+}
+
+
     public function show(Post $post)
 {
     return view('posts.show', compact('post'));

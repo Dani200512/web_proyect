@@ -14,7 +14,7 @@
                 <img src="{{ asset('imagenes/logo.png') }}" alt="Logo" class="navbar-logo">
                 <span>Ayuemplen</span>
             </div>
-            <button class="navbar-toggler" type="button">
+            <button class="navbar-toggler" type="button" aria-label="Toggle navigation" aria-expanded="false">
                 <i class="fas fa-bars"></i>
             </button>
             <div class="navbar-menu">
@@ -66,8 +66,6 @@
         </div>
     </nav>
 
-
-
     <div class="py-4">
         @yield('content')
     </div>
@@ -98,12 +96,20 @@
                 &copy; {{ date('Y') }} Ayuemplen. Todos los derechos reservados.
             </div>
         </div>
-        
+
     </footer>
 
     <script>
         document.querySelector('.navbar-toggler').addEventListener('click', function() {
-            document.querySelectaor('.navbar-menu').classList.toggle('show');
+            const navbarMenu = document.querySelector('.navbar-menu');
+            navbarMenu.classList.toggle('show');
+            this.setAttribute('aria-expanded', navbarMenu.classList.contains('show'));
+
+            if (navbarMenu.classList.contains('show')) {
+                navbarMenu.style.maxHeight = navbarMenu.scrollHeight + "px";
+            } else {
+                navbarMenu.style.maxHeight = "0px";
+            }
         });
     </script>
 </body>

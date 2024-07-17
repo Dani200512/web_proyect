@@ -9,7 +9,8 @@ class Multimedia extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['photo', 'video', 'post_id'];
+    protected $fillable = ['type', 'path', 'post_id'];
+
 
     public function post()
     {

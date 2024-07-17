@@ -1,45 +1,59 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h1>{{ $jobOffer->title }}</h1>
-    <p><strong>Descripción:</strong> {{ $jobOffer->description }}</p>
-    <p><strong>Requisitos:</strong> {{ $jobOffer->requirements }}</p>
+<div class="linkedin-container">
+    <div class="linkedin-card job-offer-details">
+        <h1 class="job-title">{{ $jobOffer->title }}</h1>
+        <div class="job-info">
+            <div class="info-item">
+                <h2>Descripción</h2>
+                <p>{{ $jobOffer->description }}</p>
+            </div>
+            <div class="info-item">
+                <h2>Requisitos</h2>
+                <p>{{ $jobOffer->requirements }}</p>
+            </div>
+        </div>
 
-     @if(Auth::check() && Auth::user()->profile->id !== $jobOffer->profile_id)
-        <a href="{{ route('job-offers.apply', $jobOffer) }}" class="btn btn-primary">Aplicar a esta oferta</a>
-    @endif
+        <div class="action-buttons">
+            @if(Auth::check() && Auth::user()->profile->id !== $jobOffer->profile_id)
+                <a href="{{ route('job-offers.apply', $jobOffer) }}" class="linkedin-btn btn-primary">Aplicar a esta oferta</a>
+            @endif
+
+            @if(Auth::check() && Auth::user()->profile->id === $jobOffer->profile_id)
+                <a href="{{ route('job-offers.edit', $jobOffer) }}" class="linkedin-btn btn-warning">Editar oferta</a>
+            @endif
+
+            <a href="{{ route('job-offers.index') }}" class="linkedin-btn btn-secondary">Volver a la lista</a>
+        </div>
+    </div>
 
     @if(Auth::check() && Auth::user()->profile->id === $jobOffer->profile_id)
-        <a href="{{ route('job-offers.edit', $jobOffer) }}" class="btn btn-warning">Editar</a>
-    @endif
-
-    <a href="{{ route('job-offers.index') }}" class="btn btn-secondary">Volver a la lista</a>
-
-    @if(Auth::check() && Auth::user()->profile->id === $jobOffer->profile_id)
-        <h3 class="mt-4">Aplicaciones</h3>
-        @forelse($jobOffer->applications as $application)
-            <div class="card mt-3">
-                <div class="card-body">
-                    <h5 class="card-title">Aplicante: {{ $application->profile->name }}</h5>
-                    <p class="card-text">Mensaje: {{ $application->message }}</p>
-                    <form action="{{ route('job-applications.update', $application) }}" method="POST" class="mt-2">
+        <div class="linkedin-card applications-section">
+            <h2 class="section-title">Aplicaciones</h2>
+            @forelse($jobOffer->applications as $application)
+                <div class="application-card">
+                    <div class="applicant-info">
+                        <h3>Aplicante: {{ $application->profile->name }}</h3>
+                        <p>{{ $application->message }}</p>
+                    </div>
+                    <form action="{{ route('job-applications.update', $application) }}" method="POST" class="status-form">
                         @csrf
                         @method('PATCH')
                         <div class="form-group">
-                            <select name="status" class="form-control">
+                            <select name="status" class="form-control status-select">
                                 <option value="pending" {{ $application->status === 'pending' ? 'selected' : '' }}>Pendiente</option>
                                 <option value="accepted" {{ $application->status === 'accepted' ? 'selected' : '' }}>Aceptar</option>
                                 <option value="rejected" {{ $application->status === 'rejected' ? 'selected' : '' }}>Rechazar</option>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-sm btn-primary mt-2">Actualizar estado</button>
+                        <button type="submit" class="linkedin-btn btn-primary btn-sm">Actualizar estado</button>
                     </form>
                 </div>
-            </div>
-        @empty
-            <p class="mt-3">No hay aplicaciones para esta oferta todavía.</p>
-        @endforelse
+            @empty
+                <p class="no-applications">No hay aplicaciones para esta oferta todavía.</p>
+            @endforelse
+        </div>
     @endif
 </div>
 @endsection
