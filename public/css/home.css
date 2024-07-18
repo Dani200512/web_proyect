@@ -81,7 +81,7 @@ body {
     line-height: 1;
     margin-top: 0;
     white-space: nowrap;
-    margin-left: auto;
+    margin-left: 40px;
 }
 
 .d-flex.align-items-center.mb-3 {
@@ -244,26 +244,26 @@ h5.card-title {
     .container-fluid {
         padding: 12px;
     }
-    
+
     .col-md-3, .col-md-6 {
         flex: 0 0 100%;
         max-width: 100%;
     }
-    
+
     .card {
         margin-bottom: 16px;
     }
-    
+
     .card-body {
         padding: 16px;
     }
-    
+
     .card-footer {
        background-color: #f9f9f9;
        border-top: 1px solid #e0e0e0;
        padding: 16px 24px;
     }
-    
+
     .form-control {
         padding: 8px 12px;
     }
@@ -279,7 +279,7 @@ h5.card-title {
     .card-footer form {
         flex-wrap: wrap;
     }
-    
+
     .card-footer .btn-primary {
         margin-top: 10px;
         width: 100%;

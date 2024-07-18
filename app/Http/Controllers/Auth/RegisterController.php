@@ -58,7 +58,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
-            'birthdate' => ['required', 'date_format:d/m/Y'],
+            'birthdate' => ['required', 'date'],
             'location' => ['nullable', 'string', 'max:255'],
             'gender' => ['required', 'string'],
             'documenttype' => ['required', 'string'],
@@ -74,7 +74,7 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'lastname' => $data['lastname'],
-            'birthdate' => Carbon::createFromFormat('d/m/Y', $data['birthdate'])->format('Y-m-d'),
+            'birthdate' => $data['birthdate'],
             'location' => $data['location'],
             'gender' => $data['gender'],
             'documenttype' => $data['documenttype'],
