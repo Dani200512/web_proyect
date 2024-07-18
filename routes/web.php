@@ -35,6 +35,7 @@ Route::middleware('web')->group(function () {
 // Ruta de inicio (home)
 Route::get('/home', [PostController::class, 'homeIndex'])->middleware('auth')->name('home');
 Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
+
 // Rutas para perfiles
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');

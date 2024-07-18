@@ -1,89 +1,152 @@
-.card {
+body {
+    background-color: #f0f2f5;
+}
+
+.profile-edit-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.profile-edit-title {
+    text-align: center;
+    color: #45c3a9;
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.profile-edit-card {
+    background-color: #ffffff;
+    border-radius: 15px;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-    border: none;
-    margin-top: 2rem;
+    padding: 40px;
 }
 
-.card-header {
-    background-color: #f8f9fa;
-    border-bottom: 1px solid #e3e6f0;
+.profile-photo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
 }
 
-.card-header h2 {
-    font-size: 1.5rem;
-    color: #333;
+.profile-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #45c3a9;
+    overflow: hidden;
 }
+
+
+.custom-file-upload {
+    border: 1px solid #45c3a9;
+    border-radius: 5px;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: #ffffff;
+    color: #45c3a9;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+}
+
+.custom-file-upload:hover {
+    background-color: #45c3a9;
+    color: #ffffff;
+}
+
+.custom-file-upload input[type="file"] {
+    display: none;
+}
+.navbar {
+    background-color: #ffffff;
+    margin-bottom: 0;
+}
+
 
 .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 25px;
 }
 
 label {
-    display: block;
-    margin-bottom: 0.5rem;
+    color: #495057;
     font-weight: 500;
-    color: #333;
+    margin-bottom: 8px;
+    display: block;
 }
 
 .form-control {
-    width: 100%;
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    border-radius: 0.25rem;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+   width: 100%;
+    border: 1px solid #45c3a9; 
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
+
 
 .form-control:focus {
-    border-color: #4e73df;
-    box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+    border-color: #45c3a9; 
+    box-shadow: 0 0 0 0.2rem rgba(69, 195, 169, 0.25);
+    outline: none;
 }
 
-.form-control-file {
+
+.btn-primary, .btn-update-profile {
+    background-color: #45c3a9; 
+    border-color: #45c3a9;
+    color: #ffffff;
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 5px;
+    transition: all 0.3s ease;
     display: block;
-    width: 100%;
+    width: auto;
+    margin-top: 20px;
 }
 
-.btn-primary {
-    color: #fff;
-    background-color: #4e73df;
-    border-color: #4e73df;
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    border-radius: 0.25rem;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+.btn-primary:hover, .btn-update-profile:hover {
+    background-color: #3aa089;
+    border-color: #3aa089;
 }
 
-.btn-primary:hover {
-    color: #fff;
-    background-color: #2e59d9;
-    border-color: #2653d4;
+
+.custom-file-upload {
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: #f8f9fa;
+    transition: background-color 0.3s ease;
 }
 
-.img-thumbnail {
-    padding: 0.25rem;
-    background-color: #fff;
-    border: 1px solid #dee2e6;
-    border-radius: 0.25rem;
-    max-width: 100%;
-    height: auto;
+.custom-file-upload:hover {
+    background-color: #e9ecef;
+}
+
+.custom-file-upload input[type="file"] {
+    display: none;
 }
 
 .invalid-feedback {
-    display: block;
-    width: 100%;
-    margin-top: 0.25rem;
-    font-size: 80%;
     color: #dc3545;
+    font-size: 14px;
+    margin-top: 5px;
 }
 
 @media (max-width: 767px) {
-    .card {
-        margin-top: 1rem;
+    .profile-edit-container {
+        margin: 20px auto;
+    }
+    
+    .profile-edit-card {
+        padding: 20px;
+    }
+    
+    .profile-edit-title {
+        font-size: 24px;
     }
 }
