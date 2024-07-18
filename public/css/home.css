@@ -6,7 +6,7 @@ body {
 
 .container-fluid {
     padding: 24px 15px;
-    max-width: 1280px;
+    max-width: 960px;
     margin: 0 auto;
 }
 
@@ -14,18 +14,16 @@ body {
     display: flex;
     flex-wrap: wrap;
     margin: 0 -12px;
+    justify-content: center;
 }
 
-.col-md-3 {
-    flex: 0 0 25%;
-    max-width: 25%;
+.col-md-3, .col-md-6 {
     padding: 0 12px;
 }
 
 .col-md-6 {
-    flex: 0 0 50%;
+    flex: 0 0 70%;
     max-width: 70%;
-    padding: 0 12px;
 }
 
 .card {
@@ -35,40 +33,120 @@ body {
     box-shadow: 0 0 0 1px rgba(0,0,0,0.15), 0 2px 3px rgba(0,0,0,0.2);
     margin-bottom: 24px;
     overflow: hidden;
-    transition: box-shadow 0.3s ease;
-}
-
-.card:hover {
-    box-shadow: 0 0 0 1px rgba(0,0,0,0.15), 0 4px 6px rgba(0,0,0,0.2);
 }
 
 .card-body {
     padding: 24px;
+    position: relative;
 }
 
 .card-footer {
-    background-color: #f9f9f9;
+    background-color: #fff;
     border-top: 1px solid #e0e0e0;
     padding: 16px 24px;
 }
 
+.card-footer form {
+    display: flex;
+    align-items: center;
+    width: 90%;
+    margin-right: 0;
+}
+
+.form-group {
+    flex-grow: 1;
+    margin-bottom: 0;
+    margin-right: 10px;
+}
+
+.form-control {
+    border-radius: 20px;
+    border: 1px solid #e0e0e0;
+    padding: 8px 16px;
+    width: 100%;
+    resize: none;
+    height: 36px;
+}
+
+.form-control:focus {
+    border-color: rgba(32, 169, 138, 1);
+    box-shadow: 0 0 0 2px rgba(32, 169, 138, 0.1);
+    outline: none;
+}
+
+.card-footer .btn-primary {
+    padding: 8px 16px;
+    font-size: 14px;
+    height: 36px;
+    line-height: 1;
+    margin-top: 0;
+    white-space: nowrap;
+    margin-left: auto;
+}
+
+.d-flex.align-items-center.mb-3 {
+    display: flex;
+    align-items: center;
+}
+
 .rounded-circle {
-    width: 72px;
-    height: 72px;
+    width: 50px;
+    height: 50px;
     object-fit: cover;
     border: 2px solid #fff;
     box-shadow: 0 0 0 1px rgba(0,0,0,0.15);
+    border-radius: 50%;
+    margin-right: 12px;
 }
 
-.card-title {
-    font-size: 18px;
+.d-flex.align-items-center.mb-3 div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+h6.mb-0 {
+    font-size: 16px;
     font-weight: 600;
-    margin-bottom: 4px;
+    margin: 0;
+    line-height: 1.2;
 }
 
-.text-muted {
-    font-size: 14px;
+small.text-muted {
+    font-size: 12px;
     color: rgba(0,0,0,0.6) !important;
+}
+
+h5.card-title {
+    color: rgba(32, 169, 138, 1);
+    font-size: 18px;
+    margin-top: 16px;
+    margin-bottom: 8px;
+}
+
+.card-text {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+.multimedia-content {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.multimedia-content img, .multimedia-content video {
+    width: 45%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
 }
 
 .btn {
@@ -110,131 +188,100 @@ body {
     color: rgba(0, 0, 0, 0.9);
 }
 
-.nav-link {
-    color: rgba(0, 0, 0, 0.6);
-    font-size: 14px;
-    padding: 4px 0;
+.job-offers {
+    margin-top: 16px;
 }
 
-.nav-link:hover {
-    color: rgba(0, 0, 0, 0.9);
-    text-decoration: underline;
-}
-
-.d-flex {
-    display: flex;
-}
-
-.align-items-center {
-    align-items: center;
-}
-
-.mr-3 {
-    margin-right: 12px;
-}
-
-.mb-3 {
+.job-offers h6 {
     margin-bottom: 12px;
 }
 
-.mt-3 {
-    margin-top: 12px;
-}
-
-.list-unstyled {
-    padding-left: 0;
-    list-style: none;
-}
-
-.alert-info {
-    background-color: #f3f2ef;
-    border: none;
-    color: rgba(0,0,0,0.6);
-    padding: 16px;
-    text-align: center;
-}
-
-.btn-block {
-    display: block;
-    width: 100%;
-    text-align: left;
-    padding: 15px 6px;
-    border: 1px solid #e0e0e0;
-    background-color: #fff;
-}
-
-.btn-block:hover {
-    background-color: #f3f2ef;
-}
-
-.card-text {
-    font-size: 14px;
-    line-height: 1.6;
+.job-offers ul li {
     margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.job-offers ul li:last-child {
+    border-bottom: none;
+}
+
+.card-footer h6 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 16px;
+    font-weight: 600;
 }
 
 .comment {
     font-size: 14px;
     margin-bottom: 12px;
-}
-
-.comment img {
-    width: 32px;
-    height: 32px;
-}
-
-.btn-link {
-    color: rgba(0, 0, 0, 0.6);
-    font-size: 12px;
-    font-weight: 600;
-    padding: 0;
-    text-decoration: none;
-}
-
-.btn-link:hover {
-    color: rgba(0, 0, 0, 0.9);
-    text-decoration: underline;
-}
-
-.w-100 {
-    width: 100%;
-}
-
-.font-weight-bold {
-    font-weight: 600;
-}
-
-.form-control {
-    border-radius: 24px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 8px;
     border: 1px solid #e0e0e0;
-    padding: 10px 16px;
 }
 
-.form-control:focus {
-    border-color: rgba(32, 169, 138, 1);
-    box-shadow: 0 0 0 2px rgba(32, 169, 138, 0.2);
+.comment strong {
+    font-weight: 600;
+    margin-right: 6px;
+}
+
+.btn-sm.btn-link {
+    display: block;
+    text-align: left;
+    margin: 16px 0 8px;
+    color: rgba(32, 169, 138, 1);
+    text-decoration: none;
+    padding: 0;
+}
+
+.mt-3 {
+    margin-top: 20px;
 }
 
 @media (max-width: 768px) {
     .container-fluid {
         padding: 12px;
     }
-
+    
     .col-md-3, .col-md-6 {
         flex: 0 0 100%;
         max-width: 100%;
     }
-
+    
     .card {
         margin-bottom: 16px;
     }
-
+    
     .card-body {
         padding: 16px;
     }
+    
+    .card-footer {
+       background-color: #f9f9f9;
+       border-top: 1px solid #e0e0e0;
+       padding: 16px 24px;
+    }
+    
+    .form-control {
+        padding: 8px 12px;
+    }
 
-    .rounded-circle {
-        width: 56px;
-        height: 56px;
+    .multimedia-content img, .multimedia-content video {
+        width: 100%;
+        height: auto;
+        max-height: 300px;
+    }
+}
+
+@media (max-width: 576px) {
+    .card-footer form {
+        flex-wrap: wrap;
+    }
+    
+    .card-footer .btn-primary {
+        margin-top: 10px;
+        width: 100%;
     }
 }
