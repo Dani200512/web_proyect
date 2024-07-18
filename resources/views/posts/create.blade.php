@@ -37,7 +37,7 @@
                     <label for="job_offer_requirements">Requisitos</label>
                     <textarea class="form-control" id="job_offer_requirements" name="job_offer[requirements]"></textarea>
                 </div>
-               
+            </div>
 
             <div class="form-group">
                 <label for="photo">Foto (opcional)</label>
@@ -52,6 +52,7 @@
             <div class="form-actions">
                 <button type="submit" class="linkedin-btn btn-primary">Crear publicación</button>
             </div>
+
         </form>
     </div>
 </div>

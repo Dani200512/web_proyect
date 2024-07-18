@@ -9,9 +9,14 @@ use Illuminate\Support\Facades\Auth;
 
 class JobOfferController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $jobOffers = JobOffer::with('post')->where('profile_id', Auth::user()->profile->id)->paginate(10);
+
+        if ($request->wantsJson()) {
+            return response()->json($jobOffers);
+        }
+
         return view('job_offers.index', compact('jobOffers'));
     }
 
@@ -22,15 +27,19 @@ class JobOfferController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'title' => 'required|max:255',
             'description' => 'required',
             'requirements' => 'required',
         ]);
 
-        $jobOffer = new JobOffer($request->all());
+        $jobOffer = new JobOffer($validatedData);
         $jobOffer->profile_id = Auth::user()->profile->id;
         $jobOffer->save();
+
+        if ($request->wantsJson()) {
+            return response()->json(['message' => 'Oferta de trabajo creada exitosamente.', 'job_offer' => $jobOffer], 201);
+        }
 
         if ($request->has('return_to_post')) {
             $jobOffers = JobOffer::where('profile_id', Auth::user()->profile->id)
@@ -41,9 +50,15 @@ class JobOfferController extends Controller
 
         return redirect()->route('job-offers.index')->with('success', 'Oferta de trabajo creada exitosamente.');
     }
-    public function show(JobOffer $jobOffer)
+
+    public function show(Request $request, JobOffer $jobOffer)
     {
         $jobOffer->load('applications.profile');
+
+        if ($request->wantsJson()) {
+            return response()->json($jobOffer);
+        }
+
         return view('job_offers.show', compact('jobOffer'));
     }
 
@@ -57,13 +72,13 @@ class JobOfferController extends Controller
     {
         $this->authorize('update', $jobOffer);
 
-        $request->validate([
+        $validatedData = $request->validate([
             'title' => 'required|max:255',
             'description' => 'required',
             'requirements' => 'required',
         ]);
 
-        $jobOffer->update($request->all());
+        $jobOffer->update($validatedData);
 
         // Actualizar el post asociado
         $jobOffer->post->update([
@@ -71,10 +86,14 @@ class JobOfferController extends Controller
             'content' => $request->description,
         ]);
 
+        if ($request->wantsJson()) {
+            return response()->json(['message' => 'Oferta de trabajo actualizada exitosamente.', 'job_offer' => $jobOffer]);
+        }
+
         return redirect()->route('job-offers.index')->with('success', 'Oferta de trabajo actualizada exitosamente.');
     }
 
-    public function destroy(JobOffer $jobOffer)
+    public function destroy(Request $request, JobOffer $jobOffer)
     {
         $this->authorize('delete', $jobOffer);
 
@@ -82,6 +101,10 @@ class JobOfferController extends Controller
         $jobOffer->post->delete();
 
         // JobOffer se eliminará automáticamente debido a la relación de clave foránea con onDelete('cascade')
+
+        if ($request->wantsJson()) {
+            return response()->json(['message' => 'Oferta de trabajo eliminada exitosamente.'], 200);
+        }
 
         return redirect()->route('job_offers.index')->with('success', 'Oferta de trabajo eliminada exitosamente.');
     }

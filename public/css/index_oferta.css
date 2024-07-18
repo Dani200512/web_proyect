@@ -1,0 +1,148 @@
+.linkedin-container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+.page-title {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: rgba(32, 169, 138, 1);
+}
+
+.linkedin-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    border: none;
+    border-radius: 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: rgba(32, 169, 138, 1);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: rgba(28, 153, 125, 1);
+    transform: translateY(-2px);
+}
+
+.btn-info {
+    background-color: #0073b1;
+    color: #fff;
+}
+
+.btn-info:hover {
+    background-color: #006097;
+}
+
+.btn-warning {
+    background-color: #f5c518;
+    color: #000;
+}
+
+.btn-warning:hover {
+    background-color: #e0b30e;
+}
+
+.btn-danger {
+    background-color: #e93d3d;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background-color: #d63232;
+}
+
+.linkedin-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-bottom: 20px;
+    margin-top: 18px;
+}
+
+.job-offer-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: rgba(0, 0, 0, 0.9);
+}
+
+.job-offer-description {
+    font-size: 16px;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, 0.6);
+    margin-bottom: 20px;
+}
+
+.job-offer-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.pagination-container {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination-container nav {
+    display: inline-block;
+}
+
+.pagination-container ul {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.pagination-container li {
+    margin: 0 5px;
+}
+
+.pagination-container a, .pagination-container span {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.6);
+    background-color: #f3f6f8;
+    transition: all 0.3s ease;
+}
+
+.pagination-container a:hover {
+    background-color: rgba(32, 169, 138, 0.1);
+    color: rgba(32, 169, 138, 1);
+}
+
+.pagination-container .active span {
+    background-color: rgba(32, 169, 138, 1);
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .linkedin-container {
+        padding: 15px;
+    }
+
+    .job-offer-actions {
+        flex-direction: column;
+    }
+
+    .linkedin-btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}

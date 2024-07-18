@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<link href="{{ asset('css/show_oferta.css') }}" rel="stylesheet">
 <div class="linkedin-container">
     <div class="linkedin-card job-offer-details">
         <h1 class="job-title">{{ $jobOffer->title }}</h1>
@@ -35,6 +36,7 @@
                 <div class="application-card">
                     <div class="applicant-info">
                         <h3>Aplicante: {{ $application->profile->name }}</h3>
+                        <p>{{ $application->profile->name }}</p>
                         <p>{{ $application->message }}</p>
                     </div>
                     <form action="{{ route('job-applications.update', $application) }}" method="POST" class="status-form">

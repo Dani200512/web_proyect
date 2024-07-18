@@ -1,44 +1,64 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class RegisterController extends Controller
 {
+    use RegistersUsers;
+
+    public function __construct()
+    {
+        $this->middleware('guest')->except('apiRegister');
+    }
+
     public function showRegistrationForm()
     {
         return view('auth.register');
     }
 
-
     public function register(Request $request)
     {
-        $this->validator($request->all())->validate();
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'message' => 'Validation failed',
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+            return back()->withErrors($validator)->withInput();
+        }
 
         $user = $this->create($request->all());
 
-        auth()->login($user);
+        if ($request->wantsJson()) {
+            $token = $user->createToken('auth_token')->plainTextToken;
+            return response()->json([
+                'user' => $user,
+                'access_token' => $token,
+                'token_type' => 'Bearer',
+            ], 201);
+        }
 
+        auth()->login($user);
         return redirect()->route('home');
     }
-
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
-
 
     protected function validator(array $data)
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
-            'birthdate' => ['required', 'date'],
+            'birthdate' => ['required', 'date_format:d/m/Y'],
             'location' => ['nullable', 'string', 'max:255'],
             'gender' => ['required', 'string'],
             'documenttype' => ['required', 'string'],
@@ -49,20 +69,25 @@ class RegisterController extends Controller
         ]);
     }
 
-
     protected function create(array $data)
     {
         return User::create([
             'name' => $data['name'],
             'lastname' => $data['lastname'],
-            'birthdate' => $data['birthdate'],
+            'birthdate' => Carbon::createFromFormat('d/m/Y', $data['birthdate'])->format('Y-m-d'),
             'location' => $data['location'],
             'gender' => $data['gender'],
             'documenttype' => $data['documenttype'],
-            'document_number' => $data ['document_number'],
+            'document_number' => $data['document_number'],
             'phone' => $data['phone'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    // Este método ahora es un alias para mantener compatibilidad con tus rutas existentes
+    public function apiRegister(Request $request)
+    {
+        return $this->register($request);
     }
 }

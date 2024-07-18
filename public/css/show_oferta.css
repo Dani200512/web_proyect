@@ -1,0 +1,168 @@
+.linkedin-container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+.linkedin-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    margin-bottom: 20px;
+}
+
+.job-title {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: rgba(32, 169, 138, 1);
+}
+
+.job-info {
+    margin-bottom: 30px;
+}
+
+.info-item {
+    margin-bottom: 20px;
+}
+
+.info-item h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.info-item p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.linkedin-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    border: none;
+    border-radius: 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: rgba(32, 169, 138, 1);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: rgba(28, 153, 125, 1);
+    transform: translateY(-2px);
+}
+
+.btn-warning {
+    background-color: #f5c518;
+    color: #000;
+}
+
+.btn-warning:hover {
+    background-color: #e0b30e;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: rgba(0, 0, 0, 0.08);
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.btn-secondary:hover {
+    background-color: rgba(0, 0, 0, 0.12);
+    color: rgba(0, 0, 0, 0.9);
+    transform: translateY(-2px);
+}
+
+.applications-section {
+    margin-top: 30px;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: rgba(32, 169, 138, 1);
+}
+
+.application-card {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.applicant-info h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.applicant-info p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, 0.7);
+    margin-bottom: 15px;
+}
+
+.status-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.status-select {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.btn-sm {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+.no-applications {
+    font-style: italic;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+    .linkedin-card {
+        padding: 20px;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .linkedin-btn {
+        width: 100%;
+    }
+
+    .status-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
