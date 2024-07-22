@@ -29,7 +29,7 @@ class LoginController extends Controller
                 return response()->json([
                     'user' => $user,
                     'access_token' => $token,
-                    'token_type' => 'Bearer',
+                    /*'token_type' => 'Bearer',*/
                 ]);
             } else {
                 // Para solicitudes web
