@@ -84,4 +84,4 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::resource('comments', CommentController::class)->only(['store', 'edit', 'update', 'destroy']);
-Route::post('comments', [CommentController::class, 'store'])->name('comments.store');
+Route::post('comments', [CommentController::class, 'store'])->name('comments.stor');
