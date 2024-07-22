@@ -11,7 +11,7 @@
                     <h5 class="card-title mb-1">{{ Auth::user()->name }}</h5>
                     <p class="card-text text-muted mb-2">{{ Auth::user()->profile->titulo ?? 'Tu título profesional' }}</p>
                     <a href="{{ route('profile.edit') }}" class="btn btn-outline-primary btn-sm w-100">Editar perfil</a>
-                </div>
+                </div> 
                 <div class="card-footer">
                     <a class="nav-link" href="{{ route('my-applications') }}">Mis aplicaciones a ofertas</a>
                 </div>
