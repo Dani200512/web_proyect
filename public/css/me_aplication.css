@@ -1,0 +1,98 @@
+.my-applications-page {
+    background-color: #f0f2f5;
+    padding: 40px 0;
+}
+
+.my-applications-page .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.my-applications-page .page-title {
+    text-align: center;
+    color: #45c3a9;
+    font-size: 36px;
+    margin-bottom: 40px;
+}
+
+.my-applications-page .applications-list {
+    display: grid;
+    gap: 30px;
+}
+
+.my-applications-page .application-card {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.my-applications-page .application-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.my-applications-page .card-body {
+    padding: 30px;
+}
+
+.my-applications-page .application-title {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.my-applications-page .application-status {
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+.my-applications-page .badge {
+    font-size: 16px;
+    padding: 8px 15px;
+    border-radius: 20px;
+}
+
+.my-applications-page .btn-primary {
+    background-color: #45c3a9;
+    border-color: #45c3a9;
+    color: #ffffff;
+    padding: 12px 24px;
+    font-size: 18px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.my-applications-page .btn-primary:hover {
+    background-color: #3aa089;
+    border-color: #3aa089;
+}
+
+@media (max-width: 767px) {
+    .my-applications-page {
+        padding: 20px 0;
+    }
+
+    .my-applications-page .container {
+        padding: 0 15px;
+    }
+    
+    .my-applications-page .page-title {
+        font-size: 30px;
+        margin-bottom: 30px;
+    }
+
+    .my-applications-page .application-title {
+        font-size: 22px;
+    }
+    
+    .my-applications-page .application-status {
+        font-size: 16px;
+    }
+
+    .my-applications-page .btn-primary {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+}

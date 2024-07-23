@@ -1,0 +1,109 @@
+.job-application-page {
+    background-color: #f0f2f5;
+    padding: 40px 0;
+}
+
+.job-application-page .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.job-application-page .page-title {
+    text-align: center;
+    color: #45c3a9;
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+.job-application-page .application-card {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    padding: 40px;
+}
+
+.job-application-page .form-group {
+    margin-bottom: 25px;
+}
+
+.job-application-page label {
+    color: #495057;
+    font-weight: 500;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.job-application-page .form-control {
+    width: 100%;
+    border: 1px solid #45c3a9;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.job-application-page .form-control:focus {
+    border-color: #45c3a9;
+    box-shadow: 0 0 0 0.2rem rgba(69, 195, 169, 0.25);
+    outline: none;
+}
+
+.job-application-page .btn {
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    width: auto;
+    margin-top: 20px;
+}
+
+.job-application-page .btn-primary {
+    background-color: #45c3a9;
+    border-color: #45c3a9;
+    color: #ffffff;
+}
+
+.job-application-page .btn-primary:hover {
+    background-color: #3aa089;
+    border-color: #3aa089;
+}
+
+.job-application-page .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: #ffffff;
+    margin-left: 10px;
+}
+
+.job-application-page .btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+
+.job-application-page .invalid-feedback {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+@media (max-width: 767px) {
+    .job-application-page {
+        padding: 20px 0;
+    }
+
+    .job-application-page .container {
+        padding: 0 15px;
+    }
+    
+    .job-application-page .application-card {
+        padding: 20px;
+    }
+    
+    .job-application-page .page-title {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+}
