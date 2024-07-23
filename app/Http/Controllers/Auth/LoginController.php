@@ -94,7 +94,7 @@ class LoginController extends Controller
                    // 'message' => 'Login exitoso',
                     'token' => $token,
                     'user' => $user
-                ]);
+                ],200);
             }
            // return redirect()->route('home.customer');
 
