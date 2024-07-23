@@ -91,9 +91,9 @@ class LoginController extends Controller
             if ($request->wantsJson()) {
                 // Respuesta JSON con el token
                 return response()->json([
-                    'message' => 'Login exitoso',
+                   // 'message' => 'Login exitoso',
                     'token' => $token,
-                    'user' => $user,
+                    'user' => $user
                 ]);
             }
            // return redirect()->route('home.customer');
