@@ -105,7 +105,7 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        $request->user()->currentAccessToken()->delete();
+        $request->user()->tokens()->delete();
         if ($request->wantsJson()) {
             // Para solicitudes API
             
